@@ -5,17 +5,9 @@ const getPetDetails = async (req, res) => {
     try{
         const pet = await Pet.findById(req.params.id);
         if (!pet) return res.status(404).json({ error: "Pet not found." });
+        res.status(200).json(pet);
     } catch (error) {
         res.status(500).json({ error: error.message });
-    }
-};
-
-const getUserDetails = async (req, res) => {
-    try{
-        const pets = await Pet.findById({ ownerId: req.params.ownerID});
-        res.json(pets);
-    } catch (error) {
-        res.status(500).json({ erorr: error.message });
     }
 };
 

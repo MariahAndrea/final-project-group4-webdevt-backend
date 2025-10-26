@@ -1,4 +1,4 @@
-const express = requre("express");
+const express = require("express");
 const Pet = require("../models/pet.model.js");
 const router = express.Router();
 const { getPetDetails, createPet, getUserDetails, feedPet, playWithPet, updatePetColor, renamePet, petAccessory } = require("../controllers/pet.controller.js");

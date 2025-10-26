@@ -1,4 +1,4 @@
-const express = requre("express");
+const express = require("express");
 const Item = require("../models/item.model.js");
 const router = express.Router();
 const { getAllItems, getItemById, createItem, deleteItem, purchaseItem, gachaPull } = require("../controllers/item.controller.js");

@@ -79,5 +79,10 @@ const gachaPull = async (req, res) => {
 };
 
 module.exports = {
-
-}
+    getAllItems,
+    getItemById,
+    createItem,
+    deleteItem,
+    purchaseItem,
+    gachaPull
+};

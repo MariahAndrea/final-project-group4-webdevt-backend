@@ -18,6 +18,19 @@ const userSchema = new mongoose.Schema({
           type: Number,
           default: 0
      }
+     ,
+    stargleams: {
+         type: Number,
+         default: 0
+    },
+    inventoryItems: {
+         type: Array,
+         default: []
+    },
+    customizationItems: {
+         type: Array,
+         default: []
+    }
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);

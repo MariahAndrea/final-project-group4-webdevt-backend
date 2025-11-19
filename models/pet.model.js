@@ -19,14 +19,20 @@ const petSchema = new mongoose.Schema({
           type: Number,
           default: 100
      }, 
+    hp: {
+         type: Number,
+         default: 100
+    },
      happiness: {
           type: Number,
           default: 100
      },
-     accessories: [{
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Item'
-     }]
+        // accessories stores item objects (embedded) so we can keep
+        // a snapshot of the item at time of equip. Use Mixed to allow
+        // either full object or id form for compatibility.
+        accessories: [{
+             type: mongoose.Schema.Types.Mixed
+        }]
 }, { timestamps: true });
 
 const Pet = mongoose.model("Pet", petSchema);

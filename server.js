@@ -47,6 +47,8 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/api/users", userRoute);
+// Support requests that use the `/users` prefix (some frontends call this path without `/api`)
+app.use("/users", userRoute);
 app.use("/api/pets", petRoute);
 app.use("/api/items", itemRoute);
 

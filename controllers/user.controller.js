@@ -34,38 +34,53 @@ const registerUser = async (req, res) => {
     }
 };
 
+// =======================
+// FIXED LOGIN FUNCTION
+// =======================
 const loginUser = async (req, res) => {
-    try{
+    try {
         const { emailOrUsername, password } = req.body;
-        if (!emailOrUsername || !password) return res.status(400).json({ error: "Missing credentials." });
+        if (!emailOrUsername || !password) {
+            return res.status(400).json({ error: "Missing credentials." });
+        }
 
+        // Find user by email OR username (NOT with password)
         const user = await User.findOne({
-            $and: [
-                { password },
-                { $or: [{ email: emailOrUsername }, { username: emailOrUsername }] }
+            $or: [
+                { email: emailOrUsername },
+                { username: emailOrUsername }
             ]
         });
 
-        if (user) {
-            res.status(200).json({
-                message: "Login successful.",
-                user: {
-                    id: user._id,
-                    username: user.username,
-                    email: user.email,
-                    coins: user.coins,
-                    stargleams: user.stargleams,
-                    inventoryItems: user.inventoryItems,
-                    customizationItems: user.customizationItems
-                }
-            });
-        } else {
-            res.status(401).json({ error: "Invalid username or password." });
+        // If no user found
+        if (!user) {
+            return res.status(401).json({ error: "Invalid username or password." });
         }
+
+        // Compare plain text passwords (no hashing used)
+        if (user.password !== password) {
+            return res.status(401).json({ error: "Invalid username or password." });
+        }
+
+        // Login successful
+        return res.status(200).json({
+            message: "Login successful.",
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                coins: user.coins,
+                stargleams: user.stargleams,
+                inventoryItems: user.inventoryItems,
+                customizationItems: user.customizationItems
+            }
+        });
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+// =======================
 
 const updaterUserInfo = async (req, res) => {
     try{

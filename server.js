@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 // Load environment variables without dotenv's verbose output
 require('dotenv').config({ debug: false });
@@ -20,6 +21,15 @@ const mongooseOptions = {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// CORS middleware for frontend requests (using official package)
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://final-project-group4-webdevt-frontend-bf96.onrender.com";
+app.use(cors({
+    origin: FRONTEND_ORIGIN,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"]
+}));
+
 // Simple request logger for diagnostics
 const debugEnabled = String(process.env.DEBUG).toLowerCase() === 'true';
 const dlog = (...args) => { if (debugEnabled) console.log(...args); };
@@ -34,16 +44,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// CORS middleware for frontend requests
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "https://final-project-group4-webdevt-frontend-bf96.onrender.com";
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', FRONTEND_ORIGIN);
-    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Credentials', 'true'); // Important if sending cookies
-    if (req.method === 'OPTIONS') return res.sendStatus(204);
-    next();
-});
 
 // Routes
 app.use("/api/users", userRoute);

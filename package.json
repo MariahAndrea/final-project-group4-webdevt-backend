@@ -4,9 +4,6 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "accepts": "^2.0.0",
-    "body-parser": "^2.2.0",
-    "bson": "^6.10.4",
     "bytes": "^3.1.2",
     "call-bind-apply-helpers": "^1.0.2",
     "call-bound": "^1.0.4",
@@ -14,7 +11,6 @@
     "content-type": "^1.0.5",
     "cookie": "^0.7.2",
     "cookie-signature": "^1.2.2",
-    "cors": "^2.8.5",
     "debug": "^4.4.3",
     "depd": "^2.0.0",
     "dotenv": "^17.2.3",
@@ -85,7 +81,8 @@
     "vary": "^1.1.2",
     "webidl-conversions": "^7.0.0",
     "whatwg-url": "^14.2.0",
-    "wrappy": "^1.0.2"
+    "wrappy": "^1.0.2",
+    "cors": "^2.8.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
